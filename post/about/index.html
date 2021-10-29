@@ -5,39 +5,27 @@
   <meta charset="UTF-8" />
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-<meta name="keywords" content="">
-<meta name="description" content="温故而知新">
-<meta name="theme-color" content="">
-<title>关于 | Gridea</title>
-<link rel="shortcut icon" href="/favicon.ico?v=1635513152748">
-<link rel="stylesheet" href="/media/css/pisces.css">
+<meta name="keywords" content="Gridea静态个人博客">
+<meta name="description" content="知其然知其所以然">
+<meta name="theme-color" content="#000">
+<title>关于 | Z0安全研究</title>
+<link rel="shortcut icon" href="/favicon.ico?v=1635522540867">
+<link rel="stylesheet" href="/styles/main.css">
+<link rel="stylesheet" href="/media/css/gemini.css">
+
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
 <link
   href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Rosario:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext"
   rel="stylesheet" type="text/css">
 
-<link href="/media/hljs/styles/github.css"
+<link href="/media/hljs/styles/androidstudio.css"
   rel="stylesheet">
 
-<link rel="stylesheet" href="/styles/main.css">
-<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-
-<script src="/media/js/jquery.js"></script>
 <script src="/media/hljs/highlight.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.0/velocity.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.0/velocity.ui.min.js"></script>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css"
-  integrity="sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq" crossorigin="anonymous">
 
-
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js"
-  integrity="sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz" crossorigin="anonymous"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js"
-  integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"
-  onload="renderMathInElement(document.body);"></script>
-
-
-
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
 
 
@@ -49,7 +37,7 @@
   <div class="head-top-line"></div>
   <div class="header-box">
     
-<div class="pisces">
+<div class="gemini">
   <header class="header  ">
     <div class="blog-header box-shadow-wrapper bg-color " id="header">
       <div class="nav-toggle" id="nav_toggle">
@@ -63,16 +51,20 @@
         <div class="site-title">
           
             <a href="/" class="brand">
-              <span>Gridea</span>
+              <span>Z0安全研究</span>
             </a>  
           
         </div>
+        
+          <p class="subtitle">知其然知其所以然</p>
         
       </div>
       <nav class="site-nav" id="site_nav">
         <ul id="nav_ul">
           
             
+            
+              
             
             <li class="nav-item ">
               
@@ -85,6 +77,8 @@
           
             
             
+              
+            
             <li class="nav-item ">
               
               
@@ -95,6 +89,8 @@
             </li>
           
             
+            
+              
             
             <li class="nav-item ">
               
@@ -107,6 +103,8 @@
           
             
             
+              
+            
             <li class="nav-item ">
               
               
@@ -117,6 +115,15 @@
             </li>
           
           
+            
+              <li class="nav-item ">
+                <a href="/friends/" target="_self">
+                  
+                    <i class="fa fa-address-book"></i> 友情链接
+                  
+                </a>
+              </li>
+            
           
         </ul>
       </nav>
@@ -149,7 +156,7 @@
   <div class="main-continer">
     
     <div
-      class="section-layout pisces ">
+      class="section-layout gemini ">
       <div class="section-layout-wrapper">
         
 
@@ -157,7 +164,55 @@
   
     <div class="sidebar-box box-shadow-wrapper bg-color right-motion" id="sidebar">
       
-      <div class="sidebar-body pisces" id="sidebar_body">
+        <div class="post-list-sidebar">
+          <div class="sidebar-title">
+            <span id="tocSideBar" class="sidebar-title-item sidebar-title-active">文章目录</span>
+            <span id="metaSideBar" class="sidebar-title-item">站点概览</span>
+          </div>
+        </div>
+      
+      <div class="sidebar-body gemini" id="sidebar_body">
+        
+          
+            
+<div class="sidebar-wrapper box-shadow-wrapper bg-color">
+  <div class="sidebar-item">
+    <img class="site-author-image right-motion" src="/images/avatar.png"/>
+    <p class="site-author-name">Jerrybird</p>
+    
+  </div>
+  <div class="sidebar-item side-item-stat right-motion">
+    <div class="sidebar-item-box">
+      <a href="/archives/">
+        
+        <span class="site-item-stat-count">1</span>
+        <span class="site-item-stat-name">文章</span>
+      </a>
+    </div>
+    <div class="sidebar-item-box">
+      <a href="">
+        <span class="site-item-stat-count">0</span>
+        <span class="site-item-stat-name">分类</span>
+      </a>
+    </div>
+    <div class="sidebar-item-box">
+      <a href="/tags/">
+        <span class="site-item-stat-count">0</span>
+        <span class="site-item-stat-name">标签</span>
+      </a>
+    </div>
+  </div>
+  
+    
+      <div class="sidebar-item" style="border-top: 1px dotted #ccc; margin-top: 10px;">
+      </div>
+    
+  
+  
+
+
+</div>
+          
         
       </div>
     </div>
@@ -200,12 +255,12 @@
     currentTitle.classList.remove(SIDEBAR_TITLE_ACTIVE);
     e.srcElement.classList.add(SIDEBAR_TITLE_ACTIVE);
 
-    jQuery.Velocity(hideElement, 'stop');
-    jQuery.Velocity(hideElement, 'transition.slideUpOut', {
+    window.Velocity(hideElement, 'stop');
+    window.Velocity(hideElement, 'transition.slideUpOut', {
       display: 'none',
       duration: 200,
       complete: function () {
-        jQuery.Velocity(showElement, 'transition.slideDownIn', {
+        window.Velocity(showElement, 'transition.slideDownIn', {
           duration: 200
         });
       }
@@ -242,48 +297,66 @@
 </script>
         <div class="section-box box-shadow-wrapper">
           <div class="section bg-color post post-page">
-            <section class="post-header">
+            <header class="post-header">
   <h1 class="post-title">
-    <a class="post-title-link" href="https://chroblert.github.io/post/about/"> 关于 </a>
+    <a class="post-title-link" href="https://chroblert.github.io/post/about/">
+      关于
+    </a>
   </h1>
   <div class="post-meta">
     
     <span class="meta-item pc-show">
       <i class="fa fa-calendar-o"></i>
-      <span class="language" data-lan="publish">发布于</span>
-      <span class="publish-time" data-t="2019-01-25 19:09:48">2019-01-25</span>
+      <span>发布于</span>
+      <span>2021-10-29</span>
       <span class="post-meta-divider pc-show">|</span>
     </span>
     
     <span class="meta-item">
       <i class="fa fa-clock-o"></i>
-      <span
-        >1<span class="language" data-lan="minute"
-          >分钟</span
-        ></span
-      >
+      <span>1分钟</span>
     </span>
     <span class="meta-item">
       <span class="post-meta-divider">|</span>
       <i class="fa fa-file-word-o"></i>
-      <span
-        >15<span class="pc-show language" data-lan="words"
-          >字数</span
-        ></span
-      >
+      <span>2<span class="pc-show">字数</span></span>
     </span>
     
   </div>
-</section>
-
+</header>
             <div class="post-body next-md-body" id="post_body">
               <blockquote>
-<p>欢迎来到我的小站呀，很高兴遇见你！🤝</p>
+<p>欢迎</p>
 </blockquote>
 
             </div>
-            
-            
+            <div class="post-footer">
+  <ul class="post-copyright">
+    <li class="post-copyright-author">
+      <strong>本文作者：</strong>
+      Jerrybird
+    </li>
+    <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://chroblert.github.io/post/about/" title="关于">https://chroblert.github.io/post/about/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong>
+      本博客所有文章除特别声明外，均采用<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i> BY-NC-SA</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+  <div class="tags">
+    
+  </div>
+  <div class="nav">
+    <div class="nav-prev">
+      
+    </div>
+    <div class="nav-next">
+      
+    </div>
+  </div>
+</div>
             
   
 
@@ -293,684 +366,341 @@
     </div>
     <div class="footer-box">
   <footer class="footer">
-    <center>
-      已运行:<span id="run_time"></span>
-      <span class="post-meta-divider">|</span>
-      已咕咕:<span id="gugu_time"></span>
-    </center>
-
-    总字数:<span id="word_count"></span>
-    <span class="post-meta-divider">|</span>
-    <span id="busuanzi_container_site_pv">浏览数:<span id="busuanzi_value_site_pv"></span> 次</span>
-    <span class="post-meta-divider">|</span>
-    <span id="busuanzi_container_site_uv">访客数:<span id="busuanzi_value_site_uv"></span> 人</span>
-
-    <script>
-      function runTime() {
-        str = "";
-        BirthDay = new Date("January 30,2019");
-        today = new Date();
-        timeold = today.getTime() - BirthDay.getTime();
-        msPerDay = 24 * 60 * 60 * 1000;
-        e_daysold = timeold / msPerDay;
-        daysold = Math.floor(e_daysold);
-        str += daysold + "天";
-        return str;
-      }
-      setInterval(function () {
-        $("#run_time").html(runTime());
-      }, 1000);
-    </script>
-
-    <script>
-      function guguTime() {
-        str = "";
-        guguDay = new Date(document.lastModified);
-        today = new Date();
-        timeold = today.getTime() - guguDay.getTime();
-        msPerDay = 24 * 60 * 60 * 1000;
-        e_daysold = timeold / msPerDay;
-        daysold = Math.floor(e_daysold);
-        str += daysold + "天";
-        return str;
-      }
-      setInterval(function () {
-        $("#gugu_time").html(guguTime());
-      }, 1000);
-    </script>
-
-    <script>
-      function site() {
-
-        return 275.6 + "k";
-      };
-
-      setInterval(function () {
-        $("#word_count").html(site());
-      }, 1000);
-    </script>
-
     <div class="copyright">
-      Created by
-      <a href="https://github.com/YuZhangWang" target="_blank">YuZhangWang</a>
-      ©2019-Present
-      <span class="post-meta-divider">|</span>
-      Powered By
-      <a href="https://github.com/YuZhangWang/YuZhangWang.github.io" target="_blank">Github</a>
-      <span class="post-meta-divider">|</span>
-      Theme By
-      <a href="https://github.com/theme-next/hexo-theme-next" target="_blank">Next</a>
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | © 2019-2020 Theme By <a href="https://github.com/hsxyhao/gridea-theme-next" target="_blank">HsxyHao</a>
     </div>
     <div class="poweredby">
       Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
     </div>
   </footer>
   
+  
+  <div class="gemini back-to-top" id="back_to_top">
+    <i class="fa fa-arrow-up"></i>
     
-        <div class="pisces back-to-top" id="back_to_top">
-          <i class="fa fa-arrow-up"></i>
-          
-            <span class="scrollpercent"> <span id="back_to_top_text">0</span>% </span>
-            
-        </div>
-        
-          
-            
-                
-                  
-                        
-                          
-
-                            
+    <span class="scrollpercent">
+      <span id="back_to_top_text">0</span>%
+    </span>
+    
+  </div>
+  
+  
+  
 </div>
 <script>
-  let sideBarOpen = "sidebar-open";
+
+  let sideBarOpen = 'sidebar-open';
   let body = document.body;
-  let back2Top = document.querySelector("#back_to_top"),
-    back2TopText = document.querySelector("#back_to_top_text"),
-    drawerBox = document.querySelector("#drawer_box"),
-    rightSideBar = document.querySelector(".sidebar"),
-    viewport = document.querySelector("body");
+  let back2Top = document.querySelector('#back_to_top'),
+  back2TopText = document.querySelector('#back_to_top_text'),
+  drawerBox = document.querySelector('#drawer_box'),
+  rightSideBar = document.querySelector('.sidebar'),
+  viewport = document.querySelector('body');
 
   function scrollAnimation(currentY, targetY) {
-    let needScrollTop = targetY - currentY;
-    let _currentY = currentY;
+   
+    let needScrollTop = targetY - currentY
+    let _currentY = currentY
     setTimeout(() => {
-      const dist = Math.ceil(needScrollTop / 10);
-      _currentY += dist;
-      window.scrollTo(_currentY, currentY);
+      const dist = Math.ceil(needScrollTop / 10)
+      _currentY += dist
+      window.scrollTo(_currentY, currentY)
       if (needScrollTop > 10 || needScrollTop < -10) {
-        scrollAnimation(_currentY, targetY);
+        scrollAnimation(_currentY, targetY)
       } else {
-        window.scrollTo(_currentY, targetY);
+        window.scrollTo(_currentY, targetY)
       }
-    }, 1);
+    }, 1)
   }
 
-  back2Top.addEventListener("click", function (e) {
+  back2Top.addEventListener("click", function(e) {
     scrollAnimation(document.scrollingElement.scrollTop, 0);
     e.stopPropagation();
     return false;
   });
-
-  window.addEventListener("scroll", function (e) {
-    let percent =
-      (document.scrollingElement.scrollTop /
-        (document.scrollingElement.scrollHeight -
-          document.scrollingElement.clientHeight)) *
-      100;
-    if (percent > 1 && !back2Top.classList.contains("back-top-active")) {
-      back2Top.classList.add("back-top-active");
+  
+  window.addEventListener('scroll', function(e) {
+    let percent = document.scrollingElement.scrollTop / (document.scrollingElement.scrollHeight - document.scrollingElement.clientHeight) * 100;
+    if (percent > 1 && !back2Top.classList.contains('back-top-active')) {
+      back2Top.classList.add('back-top-active');
     }
     if (percent == 0) {
-      back2Top.classList.remove("back-top-active");
+      back2Top.classList.remove('back-top-active');
     }
     if (back2TopText) {
       back2TopText.textContent = Math.floor(percent);
     }
   });
 
+  
   let hasCacu = false;
-  window.addEventListener("resize", function (e) {
-    calcuHeight();
-  });
+  window.onresize = function() {
+    if (window.width > 991) {
+      calcuHeight();
+    } else {
+      hasCacu = false;
+    }
+  }
 
   function calcuHeight() {
     // 动态调整站点概览高度
-    if (
-      (!hasCacu && back2Top.classList.contains("pisces")) ||
-      back2Top.classList.contains("gemini")
-    ) {
-      let sideBar = document.querySelector(".sidebar");
-      let navUl = document.querySelector("#site_nav");
-      sideBar.style =
-        "margin-top:" + (navUl.offsetHeight + navUl.offsetTop + 15) + "px;";
+    if (!hasCacu && back2Top.classList.contains('pisces') || back2Top.classList.contains('gemini')) {
+      let sideBar = document.querySelector('.sidebar');
+      let navUl = document.querySelector('#site_nav');
+      sideBar.style = 'margin-top:' + (navUl.offsetHeight + navUl.offsetTop + 15) + 'px;';
       hasCacu = true;
     }
   }
   calcuHeight();
-
-  let open = false,
-    MOTION_TIME = 300,
-    RIGHT_MOVE_DIS = "320px";
+  
+  let open = false, MOTION_TIME = 300, RIGHT_MOVE_DIS = '320px';
 
   if (drawerBox) {
-    let rightMotions = document.querySelectorAll(".right-motion");
-    let right = drawerBox.classList.contains("right");
+    let rightMotions = document.querySelectorAll('.right-motion');
+    let right = drawerBox.classList.contains('right');
 
-    let transitionDir = right
-      ? "transition.slideRightIn"
-      : "transition.slideLeftIn";
+    let transitionDir = right ? "transition.slideRightIn" : "transition.slideLeftIn";
 
     let openProp, closeProp;
     if (right) {
       openProp = {
-        paddingRight: RIGHT_MOVE_DIS,
+        paddingRight: RIGHT_MOVE_DIS 
       };
       closeProp = {
-        paddingRight: "0px",
+        paddingRight: '0px'
       };
     } else {
       openProp = {
-        paddingLeft: RIGHT_MOVE_DIS,
+        paddingLeft: RIGHT_MOVE_DIS 
       };
       closeProp = {
-        paddingLeft: "0px",
+        paddingLeft: '0px'
       };
     }
 
-    drawerBox.onclick = function () {
+    drawerBox.onclick = function() {
       open = !open;
-      jQuery.Velocity(rightSideBar, "stop");
-      jQuery.Velocity(viewport, "stop");
-      jQuery.Velocity(rightMotions, "stop");
+      window.Velocity(rightSideBar, 'stop');
+      window.Velocity(viewport, 'stop');
+      window.Velocity(rightMotions, 'stop');
       if (open) {
-        jQuery.Velocity(
-          rightSideBar,
-          {
-            width: RIGHT_MOVE_DIS,
-          },
-          {
-            duration: MOTION_TIME,
-            begin: function () {
-              jQuery.Velocity(rightMotions, transitionDir, {});
-            },
-          }
-        );
-        jQuery.Velocity(viewport, openProp, {
+        window.Velocity(rightSideBar, {
+          width: RIGHT_MOVE_DIS
+        }, {
           duration: MOTION_TIME,
+          begin: function() {
+            window.Velocity(rightMotions, transitionDir,{ });
+          }
+        })
+        window.Velocity(viewport, openProp,{
+          duration: MOTION_TIME
         });
       } else {
-        jQuery.Velocity(
-          rightSideBar,
-          {
-            width: "0px",
-          },
-          {
-            duration: MOTION_TIME,
-            begin: function () {
-              jQuery.Velocity(rightMotions, {
-                opacity: 0,
-              });
-            },
-          }
-        );
-        jQuery.Velocity(viewport, closeProp, {
+        window.Velocity(rightSideBar, {
+          width: '0px'
+        }, {
           duration: MOTION_TIME,
+          begin: function() {
+            window.Velocity(rightMotions, {
+              opacity: 0
+            });
+          }
+        })
+        window.Velocity(viewport, closeProp ,{
+          duration: MOTION_TIME
         });
       }
       for (let i = 0; i < drawerBox.children.length; i++) {
-        drawerBox.children[i].classList.toggle("muse-line");
+        drawerBox.children[i].classList.toggle('muse-line');
       }
       drawerBox.classList.toggle(sideBarOpen);
-    };
+    }
   }
 
   // 链接跳转
-  let newWindow = "";
-  if (newWindow === "true") {
-    let links = document.querySelectorAll(".post-body a");
-    links.forEach((item) => {
-      if (!item.classList.contains("btn")) {
-        item.setAttribute("target", "_blank");
+  let newWindow = 'false'
+  if (newWindow === 'true') {
+    let links = document.querySelectorAll('.post-body a')
+    links.forEach(item => {
+      if (!item.classList.contains('btn')) {
+        item.setAttribute("target","_blank");
       }
-    });
+    })
   }
-
-  let faSearch = document.querySelector("#fa_search");
-  faSearch &&
-    faSearch.addEventListener("click", function () {
-      document.querySelector("#search_mask").style = "";
-    });
-
   // 代码高亮
   hljs.initHighlightingOnLoad();
 
-  // 离开当前页title变化
-  var leaveTitle = "";
-  var normal_title = document.title;
-  if (leaveTitle) {
-    document.addEventListener("visibilitychange", function () {
-      if (document.visibilityState == "hidden") {
-        normal_title = document.title;
-        document.title = leaveTitle;
-      } else {
-        document.title = normal_title;
-      }
-    });
-  }
 </script>
-
-<link rel="stylesheet" href="/media/css/jquery.fancybox.css" />
-<script src="/media/js/jquery.fancybox.js"></script>
-
+    <div class="light-box" id="light_box"></div>
 <script>
-  let images = document.querySelectorAll(".section img");
-  images.forEach((image) => {
-    var parent = image.parentElement;
-    var next = image.nextElementSibling;
-    parent.removeChild(image);
-    var aelem = document.createElement("a");
-    aelem.href = image.src;
-    aelem.dataset["fancybox"] = "images";
-    aelem.dataset["rel"] = "fancybox-button";
-    aelem.classList.add("fancybox");
-    aelem.appendChild(image);
-    parent.insertBefore(aelem, next);
+  let imgs = document.querySelectorAll('.post-body img');
+  let lightBox = document.querySelector('#light_box');
+  lightBox.addEventListener('mousedown', (e) => {
+    e.preventDefault()
+  })
+  lightBox.addEventListener('mousewheel', (e) => {
+    e.preventDefault()
+  })
+  let width = window.innerWidth * 0.8;
+  lightBox.onclick = () => {
+    let img = lightBox.querySelector('img');
+    lightBox.style = '';
+    img && img.remove();
+  }
+  imgs.forEach(item => {
+    item.onclick = function (e) {
+      let lightImg = document.createElement('img');
+      lightImg.src = this.src;
+      lightBox.style = `height: 100%; opacity: 1; background-color: rgba(0, 0, 0, 0.5);cursor: zoom-out;`;
+      lightImg.style = `width: ${width}px; border: 1px solid #fff; border-radius: 2px;`;
+      lightImg.onclick = function () {
+        lightBox.style = '';
+        this.remove();
+      }
+      lightBox.append(lightImg);
+    }
+  })
+</script>
+  </div>
+</body>
+<input hidden id="copy" />
+<script>
+  //拿来主义(真香)^_^，Clipboard 实现摘自掘金 https://juejin.im/post/5aefeb6e6fb9a07aa43c20af
+  window.Clipboard = (function (window, document, navigator) {
+    var textArea,
+      copy;
+
+    // 判断是不是ios端
+    function isOS() {
+      return navigator.userAgent.match(/ipad|iphone/i);
+    }
+    //创建文本元素
+    function createTextArea(text) {
+      textArea = document.createElement('textArea');
+      textArea.value = text;
+      textArea.style.width = 0;
+      textArea.style.height = 0;
+      textArea.clientHeight = 0;
+      textArea.clientWidth = 0;
+      document.body.appendChild(textArea);
+    }
+    //选择内容
+    function selectText() {
+      var range,
+        selection;
+
+      if (isOS()) {
+        range = document.createRange();
+        range.selectNodeContents(textArea);
+        selection = window.getSelection();
+        selection.removeAllRanges();
+        selection.addRange(range);
+        textArea.setSelectionRange(0, 999999);
+      } else {
+        textArea.select();
+      }
+    }
+
+    //复制到剪贴板
+    function copyToClipboard() {
+      try {
+        document.execCommand("Copy")
+      } catch (err) {
+        alert("复制错误！请手动复制！")
+      }
+      document.body.removeChild(textArea);
+    }
+
+    copy = function (text) {
+      createTextArea(text);
+      selectText();
+      copyToClipboard();
+    };
+
+    return {
+      copy: copy
+    };
+  })(window, document, navigator);
+
+  function copyCode(e) {
+    if (e.srcElement.tagName === 'SPAN' && e.srcElement.classList.contains('copy-code')) {
+      let code = e.currentTarget.querySelector('code');
+      var text = code.innerText;
+      if (e.srcElement.textContent === '复制成功') {
+        console.log('复制操作频率过高');
+        return;
+      }
+      e.srcElement.textContent = '复制成功';
+      (function (elem) {
+        setTimeout(() => {
+          if (elem.textContent === '复制成功') {
+            elem.textContent = '复制代码'
+          }
+        }, 1000);
+      })(e.srcElement)
+      Clipboard.copy(text);
+    }
+  }
+
+  let pres = document.querySelectorAll('pre');
+  pres.forEach(pre => {
+    let code = pre.querySelector('code');
+    let copyElem = document.createElement('span');
+    copyElem.classList.add('copy-code');
+    copyElem.textContent = '复制代码';
+    pre.appendChild(copyElem);
+    pre.onclick = copyCode
+  })
+</script>
+<script src="/media/js/motion.js"></script>
+
+<script src="https://cdn.jsdelivr.net/gh/cferdinandi/smooth-scroll/dist/smooth-scroll.polyfills.min.js"></script>
+<script>
+  var scroll = new SmoothScroll('a[href*="#"]', {
+    speed: 500
   });
 </script>
-    <div class="reward-mask" style="display: none;">
-  <div class="reward-relative">
-    <span class="close" aria-hidden="true">x</span>
-    <div class="reward-body">
-      <h2>感谢您的支持，我会继续努力的!</h2>
-      <div class="reward-img-box">
-        <div style="position: relative; width: 140px; height: 140px;">
-          
-          
-          
-        </div>
+
+<!-- <div class="search-mask" id="search_mask">
+  <div class="search-box">
+    <div class="search-title">
+      <i class="fa fa-search"></i>
+      <div class="input-box">
+        <input type="text" placeholder="搜索">
       </div>
-      <p class="reward-word"></p>
-      <p class="reward-tip"></p>
+      <i class="fa fa-times-circle"></i>
     </div>
-    <div class="bottom">
+    <div class="result">
       
+      <div class="item">
+        <a class="result-title" href="https://chroblert.github.io/post/about/"" data-c="
+          &lt;blockquote&gt;
+&lt;p&gt;欢迎&lt;/p&gt;
+&lt;/blockquote&gt;
+">关于</a>
+      </div>
       
     </div>
   </div>
 </div>
-<style>
-  .reward-mask {
-    position: fixed;
-    z-index: 99999;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background-color: #00000054;
-  }
-
-  .reward-relative {
-    position: relative;
-    width: 480px;
-    text-align: center;
-    margin: 0 auto;
-    border-radius: 5px;
-    background-color: #fff;
-    top: 50%;
-    margin-top: -205px;
-  }
-
-  .reward-relative .close {
-    position: absolute;
-    right: 10px;
-    font-weight: normal;
-    font-size: 16px;
-    color: #929292;
-  }
-
-  .reward-body {
-    padding: 40px 20px 20px;
-  }
-
-  .bottom {
-    display: flex;
-  }
-
-  .reward-btn {
-    text-align: center;
-  }
-
-  .reward-btn-text {
-    display: inline-block;
-    cursor: pointer;
-    width: 60px;
-    height: 60px;
-    line-height: 60px;
-    border-radius: 50%;
-    background-color: #ff9734;
-    color: #FFF;
-    margin-top: 20px;
-  }
-
-  .pay-text {
-    margin-top: 10px;
-    padding: 10px;
-    flex: 1;
-    transition: all .2s linear;
-  }
-
-  .pay-text:hover {
-    background-color: #a5a5a536;
-  }
-
-  .reward-body h2 {
-    padding-top: 10px;
-    text-align: center;
-    color: #a3a3a3;
-    font-size: 16px;
-    font-weight: normal;
-    margin: 0 0 20px;
-  }
-
-  .reward-body h2:after,
-  .reward-body h2:before {
-    font-family: Arial, Helvetica, sans-serif;
-    background: 0 0;
-    width: 0;
-    height: 0;
-    font-style: normal;
-    color: #eee;
-    font-size: 80px;
-    position: absolute;
-    top: 20px;
-  }
-
-  .reward-body h2:before {
-    content: '\201c';
-    left: 50px;
-  }
-
-  .reward-body h2:after {
-    content: '\201d';
-    right: 80px;
-  }
-
-  .reward-img-box {
-    display: inline-block;
-    padding: 10px;
-    border: 6px solid #ea5f00;
-    margin: 0 auto;
-    border-radius: 3px;
-    position: relative;
-  }
-
-  .reward-img {
-    position: absolute;
-    left: 0px;
-    top: 0px;
-    width: 100%;
-    height: 100%;
-  }
-
-  @media (max-width: 767px) {
-    .reward-relative {
-      height: 100%;
-      top: 0px;
-      margin-top: 0;
-      width: auto;
-    }
-
-    .reward-relative .bottom {
-      flex-direction: column;
-    }
-
-    .reward-relative .pay-text {
-      width: 80%;
-      margin: 5px auto;
-      border: 1px solid silver;
-      padding: 6px;
-      border-radius: 4px;
-    }
-
-    .reward-body h2:after {
-      right: 40px;
-    }
-
-    .reward-body h2:after,
-    .reward-body h2:before {
-      font-size: 60px;
-    }
-
-    .reward-body h2:before {
-      left: 20px;
-    }
-  }
-</style>
 <script>
-  !function () {
-    var mask = document.querySelector('.reward-mask');
-    let close = document.querySelector('.reward-relative .close');
-    let rewardBtn = document.querySelector('.reward-btn');
+  // var escape = "[{&#34;content&#34;:&#34;&lt;blockquote&gt;\n&lt;p&gt;欢迎&lt;/p&gt;\n&lt;/blockquote&gt;\n&#34;,&#34;fileName&#34;:&#34;about&#34;,&#34;abstract&#34;:&#34;&#34;,&#34;title&#34;:&#34;关于&#34;,&#34;tags&#34;:[],&#34;date&#34;:&#34;2021-10-29 22:59:05&#34;,&#34;dateFormat&#34;:&#34;2021-10-29&#34;,&#34;feature&#34;:&#34;&#34;,&#34;link&#34;:&#34;https://chroblert.github.io/post/about/&#34;,&#34;hideInList&#34;:false,&#34;isTop&#34;:false,&#34;stats&#34;:{&#34;text&#34;:&#34;1 min read&#34;,&#34;time&#34;:0,&#34;words&#34;:2,&#34;minutes&#34;:1},&#34;description&#34;:&#34;\n欢迎\n\n&#34;,&#34;toc&#34;:&#34;&#34;}]";
+  // var json = escape.substr(1, escape.length - 2);
+  // var datas = json.split(',');
+  // for (let i=0; i < datas.length; i++) {
+  //   let item = datas[i];
+  //   let attrs = item.split('34;:&#34')
+  //   debugger
+  //   console.log(datas[i])
+  // }
+  let escapeMap = new Map();
+  escapeMap.set('&#34;', '"');
+  escapeMap.set('&gt;', '>');
+  escapeMap.set('&#39;', "'");
+  escapeMap.set('&lt;', '<');
+  escapeMap.set('&quot;', '"');
+  escapeMap.set('&amp;', '&');
+</script> -->
 
-    let zfb = document.querySelector('#zfb'),
-      wx = document.querySelector('#wx'),
-      zfbBtn = document.querySelector('#zfbBtn'),
-      wxBtn = document.querySelector('#wxBtn');
 
-    if (zfbBtn && wxBtn) {
-      zfbBtn.addEventListener('click', () => {
-        jQuery.Velocity(zfb, 'transition.slideLeftIn', {
-          duration: 400
-        });
-        jQuery.Velocity(wx, 'transition.slideRightOut', {
-          display: 'none',
-          duration: 400
-        });
-      });
-
-      wxBtn.addEventListener('click', () => {
-        jQuery.Velocity(wx, 'transition.slideRightIn', {
-          duration: 400
-        });
-        jQuery.Velocity(zfb, 'transition.slideLeftOut', {
-          display: 'none',
-          duration: 400
-        });
-      });
-    }
-
-    rewardBtn.addEventListener('click', (e) => {
-      jQuery.Velocity(mask, 'transition.slideDownIn', {
-        duration: 400
-      })
-    });
-
-    close.addEventListener('click', (e) => {
-      e.preventDefault();
-      jQuery.Velocity(mask, 'transition.slideUpOut', {
-        duration: 400
-      })
-    })
-  }()
-</script>
-
-  </div>
-</body>
-
-      <input hidden id="copy" />
-      <script>
-        !function () {
-          let times = document.querySelectorAll('.publish-time');
-          for (let i = 0; i < times.length; i++) {
-            let date = times[i].dataset.t;
-            let time = Math.floor((new Date().getTime() - new Date(date).getTime()) / 1000);
-            if (time < 60) {
-              str = time + '秒之前';
-            } else if (time < 3600) {
-              str = Math.floor(time / 60) + '分钟之前';
-            } else if (time >= 3600 && time < 86400) {
-              str = Math.floor(time / 3600) + '小时之前';
-            } else if (time >= 86400 && time < 259200) {
-              str = Math.floor(time / 86400) + '天之前';
-            } else {
-              str = times[i].textContent;
-            }
-            times[i].textContent = str;
-          }
-        }();
-      </script>
-
-      <script>
-        let language = '';
-        if (language !== '') {
-          let map = new Map();
-          if (language === 'en') {
-            map.set('search', 'Search');
-            map.set('category', 'Categories');
-            map.set('article', 'Articles');
-            map.set('tag', 'Tags');
-            map.set('top', 'Top');
-            map.set('publish', 'published');
-            map.set('minute', ' minutes');
-            map.set('read-more', 'Read More');
-            map.set('view', 'View');
-            map.set('words', ' words');
-            map.set('category-in', 'category in');
-            map.set('preview', 'Meta');
-            map.set('index', 'Toc');
-            map.set('no-archives', "You haven't created yet");
-            map.set('archives', " articles in total");
-            map.set('cloud-tags', " tags in total");
-            map.set('copyright', "Copyright: ");
-            map.set('author', "Author: ");
-            map.set('link', "Link: ");
-            map.set('leave-message', "Leave a message");
-            map.set('format', "Links Format");
-            map.set('site-name', "Name: ");
-            map.set('site-link', "Link: ");
-            map.set('site-desc', "Desc: ");
-            map.set('stat', " related results, taking ");
-            map.set('stat-time', " ms");
-            map.set('site-img', "Image: ");
-          }
-
-          if (map.size > 0) {
-            let lanElems = document.querySelectorAll('.language');
-            lanElems.forEach(elem => {
-              let lan = elem.dataset.lan, text = map.get(lan);
-              if (elem.__proto__ === HTMLInputElement.prototype) {
-                elem.placeholder = text
-              } else {
-                if (elem.dataset.count) {
-                  text = elem.dataset.count + text;
-                }
-                elem.textContent = text;
-              }
-            })
-          }
-        }
-
-        window.Clipboard = (function (window, document, navigator) {
-          var textArea,
-            copy;
-
-          // 判断是不是ios端
-          function isOS() {
-            return navigator.userAgent.match(/ipad|iphone/i);
-          }
-          //创建文本元素
-          function createTextArea(text) {
-            textArea = document.createElement('textArea');
-            textArea.value = text;
-            textArea.style.width = 0;
-            textArea.style.height = 0;
-            textArea.clientHeight = 0;
-            textArea.clientWidth = 0;
-            document.body.appendChild(textArea);
-          }
-          //选择内容
-          function selectText() {
-            var range,
-              selection;
-
-            if (isOS()) {
-              range = document.createRange();
-              range.selectNodeContents(textArea);
-              selection = window.getSelection();
-              selection.removeAllRanges();
-              selection.addRange(range);
-              textArea.setSelectionRange(0, 999999);
-            } else {
-              textArea.select();
-            }
-          }
-
-          //复制到剪贴板
-          function copyToClipboard() {
-            try {
-              document.execCommand("Copy")
-            } catch (err) {
-              alert("复制错误！请手动复制！")
-            }
-            document.body.removeChild(textArea);
-          }
-
-          copy = function (text) {
-            createTextArea(text);
-            selectText();
-            copyToClipboard();
-          };
-
-          return {
-            copy: copy
-          };
-        })(window, document, navigator);
-
-        function copyCode(e) {
-          if (e.srcElement.tagName === 'SPAN' && e.srcElement.classList.contains('copy-code')) {
-            let code = e.currentTarget.querySelector('code');
-            var text = code.innerText;
-            if (e.srcElement.textContent === '复制成功') {
-              return;
-            }
-            e.srcElement.textContent = '复制成功';
-            (function (elem) {
-              setTimeout(() => {
-                if (elem.textContent === '复制成功') {
-                  elem.textContent = '复制代码'
-                }
-              }, 1000);
-            })(e.srcElement)
-            Clipboard.copy(text);
-          }
-        }
-
-        let pres = document.querySelectorAll('pre');
-        pres.forEach(pre => {
-          let code = pre.querySelector('code');
-          let copyElem = document.createElement('span');
-          copyElem.classList.add('copy-code');
-          copyElem.textContent = '复制代码';
-          pre.appendChild(copyElem);
-          pre.onclick = copyCode
-        })
-
-      </script>
-      <script src="/media/js/motion.js"></script>
-
-      
-        <script
-          src="https://cdn.jsdelivr.net/gh/cferdinandi/smooth-scroll/dist/smooth-scroll.polyfills.min.js"></script>
-        <script>
-          var scroll = new SmoothScroll('a[href*="#"]', {
-            speed: 200
-          });
-        </script>
-        
-          
-            
-
-                
 </html>

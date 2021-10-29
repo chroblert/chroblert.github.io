@@ -44,6 +44,7 @@ Railscasts-like style (c) Visoft, Inc. (Damien White)
   color: #da4939;
 }
 
+
 .hljs-symbol,
 .hljs-bullet,
 .hljs-built_in,
@@ -101,5 +102,5 @@ Railscasts-like style (c) Visoft, Inc. (Damien White)
 }
 
 .hljs-link {
-  text-decoration: none;
+  text-decoration: underline;
 }

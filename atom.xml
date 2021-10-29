@@ -1,25 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://chroblert.github.io</id>
-    <title>Gridea</title>
-    <updated>2021-10-29T13:13:54.581Z</updated>
+    <title>Z0安全研究</title>
+    <updated>2021-10-29T15:49:13.250Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://chroblert.github.io"/>
     <link rel="self" href="https://chroblert.github.io/atom.xml"/>
-    <subtitle>温故而知新</subtitle>
+    <subtitle>知其然知其所以然</subtitle>
     <logo>https://chroblert.github.io/images/avatar.png</logo>
     <icon>https://chroblert.github.io/favicon.ico</icon>
-    <rights>All rights reserved 2021, Gridea</rights>
+    <rights>All rights reserved 2021, Z0安全研究</rights>
     <entry>
-        <title type="html"><![CDATA[CobaltStrike上线自动维权]]></title>
-        <id>https://chroblert.github.io/post/cs上线自动维权/</id>
-        <link href="https://chroblert.github.io/post/cs上线自动维权/">
+        <title type="html"><![CDATA[关于]]></title>
+        <id>https://chroblert.github.io/post/about/</id>
+        <link href="https://chroblert.github.io/post/about/">
         </link>
-        <updated>2021-10-27T16:00:00.000Z</updated>
+        <updated>2021-10-29T14:59:05.000Z</updated>
         <content type="html"><![CDATA[<blockquote>
-<p>flash钓鱼，高兴的是它上线了，可惜的是它又掉了....</p>
+<p>欢迎</p>
 </blockquote>
-<figure data-type="image" tabindex="1"><img src="..%5Cpost-images%5Cimage-20211028225736687.png" alt="image-20211028225736687" loading="lazy"></figure>
 ]]></content>
     </entry>
 </feed>

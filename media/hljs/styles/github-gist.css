@@ -67,7 +67,7 @@
 }
 
 .hljs-link {
-  text-decoration: none;
+  text-decoration: underline;
 }
 
 .hljs-number {
