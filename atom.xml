@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://chroblert.github.io</id>
     <title>Z0安全研究</title>
-    <updated>2022-01-15T07:13:02.287Z</updated>
+    <updated>2022-02-19T13:09:47.375Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://chroblert.github.io"/>
     <link rel="self" href="https://chroblert.github.io/atom.xml"/>
@@ -10,6 +10,115 @@
     <logo>https://chroblert.github.io/images/avatar.png</logo>
     <icon>https://chroblert.github.io/favicon.ico</icon>
     <rights>All rights reserved 2022, Z0安全研究</rights>
+    <entry>
+        <title type="html"><![CDATA[Windows全局代理]]></title>
+        <id>https://chroblert.github.io/post/windows-quan-ju-dai-li/</id>
+        <link href="https://chroblert.github.io/post/windows-quan-ju-dai-li/">
+        </link>
+        <updated>2022-02-19T13:06:55.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="0x01-介绍">0x01 介绍</h1>
+<h2 id="1-为什么要全局代理">1. 为什么要全局代理</h2>
+<p>在渗透的时候要保护好自己啊，不要被溯源到。<br>
+在买的一些VPS上做扫描的时候，有可能会触发到VPS厂商(搬瓦工、Vultr的都有遇到过)的安全机制(如DDoS)，将我们的VPS停机。做好全局代理的情况下，我们就可以在自己的电脑上做些扫描操作了。</p>
+<h2 id="2-为什么不用proxifier">2. 为什么不用proxifier</h2>
+<p>一直有在用proxifier，这里做个测试，除了局域网的IP，其余全部通过clash，规则如下：<br>
+<img src="https://gitee.com/chroblert/pictures/raw/master/img/20220219200629.png" alt="" loading="lazy"></p>
+<p>测试ping谷歌和IP情况如下（可以看到并没有起作用）：<br>
+<img src="https://gitee.com/chroblert/pictures/raw/master/img/20220219200850.png" alt="" loading="lazy"><br>
+<img src="https://gitee.com/chroblert/pictures/raw/master/img/20220219200916.png" alt="" loading="lazy"><br>
+##　3. 全局代理的基础<br>
+　如果想深入了解的话，需要一些路由和tap/tun虚拟网卡的知识。<br>
+　推荐几篇文章，可以看一下：<br>
+<a href="https://www.junmajinlong.com/virtual/network/data_flow_about_openvpn/">通过openvpn分析tun实现隧道的数据流程</a><br>
+<a href="https://www.junmajinlong.com/virtual/network/all_about_tun_tap/">理解Linux虚拟网卡设备tun/tap的一切</a><br>
+<a href="https://www.junmajinlong.com/virtual/network/kernel_nic_ip/">理解物理网卡、网卡接口、内核、IP等属性的关系</a></p>
+<h1 id="0x02-实操">0x02 实操</h1>
+<h2 id="一windows10全局代理">（一）Windows10全局代理</h2>
+<p>Windows10实现全局代理很简单，需要借助一款工具CFW(Clash For Windows)，下面借助最新款的CFW来进行演示（TAP模式）。<br>
+<img src="https://gitee.com/chroblert/pictures/raw/master/img/20220219203630.png" alt="" loading="lazy"></p>
+<h3 id="1-安装tap">1. 安装TAP</h3>
+<p><img src="https://gitee.com/chroblert/pictures/raw/master/img/20220219203651.png" alt="" loading="lazy"><br>
+选择“TAP Device”Manage下的Install进行安装，安装完成后，适配器中会出现一个名为cfw-tap的虚拟网卡。<br>
+<img src="https://gitee.com/chroblert/pictures/raw/master/img/20220219203706.png" alt="" loading="lazy"></p>
+<h3 id="2-启用service模式">2. 启用Service模式</h3>
+<p><img src="https://gitee.com/chroblert/pictures/raw/master/img/20220219203729.png" alt="" loading="lazy"><br>
+a. 未启用Service模式下的情况下：Service Mode旁边的地球是灰色的。<br>
+b. 选择“Service Mode”Manage下的Install进行安装，安装完成后地球变成绿色。<br>
+<img src="https://gitee.com/chroblert/pictures/raw/master/img/20220219203746.png" alt="" loading="lazy"></p>
+<h3 id="3-开启mixin">3. 开启Mixin</h3>
+<p>a. 编辑Mixin配置文件，内容如下：</p>
+<pre><code>mixin:
+   dns:
+     enable: true
+     enhanced-mode: redir-host
+     nameserver:
+       - 223.5.5.5 # 真实请求DNS，可多设置几个
+       - 8.8.8.8 # 真实请求DNS，可多设置几个
+       - 114.114.114.114
+   # interface-name: WLAN # 出口网卡名称，或者使用下方的自动检测
+   tun:
+     enable: true
+     stack: gvisor # 使用 system 需要 Clash Premium 2021.05.08 及更高版本
+     dns-hijack:
+       - 198.18.0.2:53 # 请勿更改
+     auto-route: true
+     auto-detect-interface: true # 自动检测出口网卡
+</code></pre>
+<p>b. 启动Mixin<br>
+<img src="https://gitee.com/chroblert/pictures/raw/master/img/20220219203808.png" alt="" loading="lazy"></p>
+<h3 id="4-测试">4. 测试</h3>
+<p><img src="https://gitee.com/chroblert/pictures/raw/master/img/20220219203819.png" alt="" loading="lazy"><br>
+<img src="https://gitee.com/chroblert/pictures/raw/master/img/20220219203828.png" alt="" loading="lazy"></p>
+<h2 id="二windows7全局代理">（二）Windows7全局代理</h2>
+<p>我在这里直接使用cfw进行了测试，发现启用service模式的时候，并没有实际起作用，Service Mode旁边地球也一直处于灰色的状态。 下面使用另一款工具tun2socks进行全局代理。<br>
+tun2socks有几款工具，我这里选择使用go写的一款go-tun2socks,项目地址：https://github.com/eycorsican/go-tun2socks</p>
+<h3 id="1-安装tap-2">1. 安装TAP</h3>
+<p>a. 下载地址：http://build.openvpn.net/downloads/releases/tap-windows-9.22.1-I602.exe<br>
+b. 安装完成后，会出现一个TAP-Windows Adapter V9的虚拟网卡<br>
+<img src="https://gitee.com/chroblert/pictures/raw/master/img/20220219203853.png" alt="" loading="lazy"></p>
+<h3 id="2-运行tun2socks">2. 运行tun2socks</h3>
+<p>a. 按照教程装完tap，再下载tun2socks后直接运行会发现，报如下错误：<br>
+<img src="https://gitee.com/chroblert/pictures/raw/master/img/20220219203904.png" alt="" loading="lazy"><br>
+b. 经过调试分析后，是添加的虚拟网卡名称的问题。<br>
+c. 经过跟踪调试源码，发现会将虚拟网卡名称与ifaceName进行比较，而ifaceName的默认值为tun1.<br>
+<img src="https://gitee.com/chroblert/pictures/raw/master/img/20220219203938.png" alt="" loading="lazy"><br>
+d. 所以需要将添加的TAP虚拟网卡名称修改为tun1，修改完成后再次运行，结果如下(或者-tunName &quot;虚拟网卡名称&quot;)：</p>
+<ul>
+<li><img src="https://gitee.com/chroblert/pictures/raw/master/img/20220219204009.png" alt="" loading="lazy"></li>
+</ul>
+<p>e. 完整参数运行</p>
+<ul>
+<li>需要提前准备好一个socks代理服务器（这里以本地用clash为例）</li>
+<li>tun2socks-windows-4.0-amd64.exe -tunAddr 10.0.0.2 -tunGw 10.0.0.1 -tunDns 114.114.114.114 -prooxyType socks -proxyServer 127.0.0.1:7890 -tunName &quot;本地连接 2&quot;</li>
+<li>127.0.0.0:7890是clash在本地监听的一个socks5代理</li>
+</ul>
+<h3 id="3-路由配置">3. 路由配置</h3>
+<p>a. 原始路由<br>
+<img src="https://gitee.com/chroblert/pictures/raw/master/img/20220219204039.png" alt="" loading="lazy">		<br>
+b. 修改虚拟网卡的跳跃点数为1<br>
+<img src="https://gitee.com/chroblert/pictures/raw/master/img/20220219204107.png" alt="" loading="lazy"><br>
+c. 之后运行tun2socks的时候，会自动添加一条路由</p>
+<ul>
+<li>因为此时虚拟网卡的metric的2相比于原始的默认路由11小，所以可以不用删除原始的默认路由。</li>
+<li><img src="https://gitee.com/chroblert/pictures/raw/master/img/20220219204137.png" alt="" loading="lazy"></li>
+</ul>
+<p>d. 此时直接访问网站的话会发现访问不到，经过分析应该是clash出去的机场的IP会路由匹配到10.0.0.1，造成一个回环。</p>
+<ul>
+<li>因而此时需要找到clash出去的机场IP，通过clash的log和tun2sock的运行界面可以看到大量重复的一个IP，这个就有可能是我们机场的IP。</li>
+<li><img src="https://gitee.com/chroblert/pictures/raw/master/img/20220219204225.png" alt="" loading="lazy"></li>
+<li><img src="https://gitee.com/chroblert/pictures/raw/master/img/20220219204235.png" alt="" loading="lazy"></li>
+<li>找到后需要让机场IP通过原始默认网关出去。</li>
+<li>route add &lt;机场IP&gt; mask 255.255.255.255 192.168.14.1</li>
+<li><img src="https://gitee.com/chroblert/pictures/raw/master/img/20220219204312.png" alt="" loading="lazy"></li>
+</ul>
+<h3 id="4-测试-2">4. 测试</h3>
+<figure data-type="image" tabindex="6"><img src="https://gitee.com/chroblert/pictures/raw/master/img/20220219204319.png" alt="" loading="lazy"></figure>
+<p>参考资料：<a href="https://www.junmajinlong.com/virtual/network/data_flow_about_openvpn/">通过openvpn分析tun实现隧道的数据流程</a><br>
+参考资料：<a href="https://www.junmajinlong.com/virtual/network/all_about_tun_tap/">理解Linux虚拟网卡设备tun/tap的一切</a><br>
+参考资料：<a href="https://www.junmajinlong.com/virtual/network/kernel_nic_ip/">理解物理网卡、网卡接口、内核、IP等属性的关系</a><br>
+参考资料：<a href="https://igghelper.com/helper/?p=402">使用Clash Tun网卡模式</a></p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[flash钓鱼升级版]]></title>
         <id>https://chroblert.github.io/post/flash-diao-yu-sheng-ji-ban/</id>

@@ -8,7 +8,7 @@
 <meta name="keywords" content="Gridea静态个人博客">
 <meta name="description" content="知其然知其所以然">
 <meta name="theme-color" content="#000">
-<title>Z0安全研究</title>
+<title>Windows全局代理 | Z0安全研究</title>
 <link rel="shortcut icon" href="/favicon.ico?v=1645276155947">
 <link rel="stylesheet" href="/styles/main.css">
 <link rel="stylesheet" href="/media/css/gemini.css">
@@ -29,6 +29,8 @@
 
 
 
+  <meta name="description" content="Windows全局代理" />
+  <meta name="keywords" content="" />
 </head>
 
 <body>
@@ -90,7 +92,7 @@
             
               
             
-            <li class="nav-item nav-item-active">
+            <li class="nav-item ">
               
               
                 <a href="/tags/" target="_self">
@@ -154,10 +156,26 @@
   <div class="main-continer">
     
     <div
-      class="section-layout  gemini">
+      class="section-layout gemini ">
       <div class="section-layout-wrapper">
-        <div id="sidebarMeta" class="sidebar">
-    
+        
+
+<div class="sidebar">
+  
+    <div class="sidebar-box box-shadow-wrapper bg-color right-motion" id="sidebar">
+      
+        <div class="post-list-sidebar">
+          <div class="sidebar-title">
+            <span id="tocSideBar" class="sidebar-title-item sidebar-title-active">文章目录</span>
+            <span id="metaSideBar" class="sidebar-title-item">站点概览</span>
+          </div>
+        </div>
+      
+      <div class="sidebar-body gemini" id="sidebar_body">
+        
+          
+            <div class="post-side-meta" id="post_side_meta">
+              
 <div class="sidebar-wrapper box-shadow-wrapper bg-color">
   <div class="sidebar-item">
     <img class="site-author-image right-motion" src="/images/avatar.png"/>
@@ -195,84 +213,467 @@
 
 
 </div>
+            </div>
+            <div class="post-toc sidebar-body-active" id="post_toc" style="opacity: 1;">
+              <div class="toc-box right-motion">
+  <div class="toc-wrapper auto-number auto"
+    id="toc_wrapper">
+    <ul class="markdownIt-TOC">
+<li><a href="#0x01-%E4%BB%8B%E7%BB%8D">0x01 介绍</a>
+<ul>
+<li><a href="#1-%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E5%85%A8%E5%B1%80%E4%BB%A3%E7%90%86">1. 为什么要全局代理</a></li>
+<li><a href="#2-%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E7%94%A8proxifier">2. 为什么不用proxifier</a></li>
+</ul>
+</li>
+<li><a href="#0x02-%E5%AE%9E%E6%93%8D">0x02 实操</a>
+<ul>
+<li><a href="#%E4%B8%80windows10%E5%85%A8%E5%B1%80%E4%BB%A3%E7%90%86">（一）Windows10全局代理</a>
+<ul>
+<li><a href="#1-%E5%AE%89%E8%A3%85tap">1. 安装TAP</a></li>
+<li><a href="#2-%E5%90%AF%E7%94%A8service%E6%A8%A1%E5%BC%8F">2. 启用Service模式</a></li>
+<li><a href="#3-%E5%BC%80%E5%90%AFmixin">3. 开启Mixin</a></li>
+<li><a href="#4-%E6%B5%8B%E8%AF%95">4. 测试</a></li>
+</ul>
+</li>
+<li><a href="#%E4%BA%8Cwindows7%E5%85%A8%E5%B1%80%E4%BB%A3%E7%90%86">（二）Windows7全局代理</a>
+<ul>
+<li><a href="#1-%E5%AE%89%E8%A3%85tap-2">1. 安装TAP</a></li>
+<li><a href="#2-%E8%BF%90%E8%A1%8Ctun2socks">2. 运行tun2socks</a></li>
+<li><a href="#3-%E8%B7%AF%E7%94%B1%E9%85%8D%E7%BD%AE">3. 路由配置</a></li>
+<li><a href="#4-%E6%B5%8B%E8%AF%95-2">4. 测试</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  </div>
 </div>
+
 <script>
-  let sidebarMeta = document.querySelector('#sidebarMeta');
-  let scheme = 'gemini';
-  let sidebarWrapper = document.querySelector('.sidebar-wrapper');
-  if (sidebarMeta && (scheme === 'pisces' || scheme === 'gemini')) {
-    document.addEventListener('scroll', function(e) {
-      if (document.scrollingElement.scrollTop > parseInt(sidebarMeta.style.marginTop) + 10) {
-        sidebarWrapper.classList.add('home-sidebar-fixed')
-      } else {
-        sidebarWrapper.classList.remove('home-sidebar-fixed')
+
+  let lastTop = 0, lList = [], hList = [], postBody, lastIndex = -1;
+  let active = 'active-show', activeClass = 'active-current';
+  let tocWrapper = document.querySelector('#toc_wrapper');
+  let tocContent = tocWrapper.children[0];
+  let autoNumber = tocWrapper && tocWrapper.classList.contains('auto-number');
+
+  function addTocNumber(elem, deep) {
+    if (!elem) {
+      return;
+    }
+    let prop = elem.__proto__;
+
+    if (prop === HTMLUListElement.prototype) {
+      for (let i = 0; i < elem.children.length; i++) {
+        addTocNumber(elem.children[i], deep + (i + 1) + '.');
       }
+    } else if (prop === HTMLLIElement.prototype) {
+      // 保存li元素
+      if (elem.children[0].__proto__ === HTMLAnchorElement.prototype) {
+        lList.push(elem);
+      }
+      for (let i = 0; i < elem.children.length; i++) {
+        let cur = elem.children[i];
+        if (cur.__proto__ === HTMLAnchorElement.prototype) {
+          if (autoNumber) {
+            cur.text = deep + ' ' + cur.text;
+          }
+        } else if (cur.__proto__ === HTMLUListElement.prototype) {
+          addTocNumber(cur, deep);
+        }
+      }
+    }
+  }
+
+  function removeParentActiveClass() {
+    let parents = tocContent.querySelectorAll('.' + active)
+    parents.forEach(function (elem) {
+      elem.classList.remove(active);
     });
   }
-  </script>
-        <div class="section-box box-shadow-wrapper">
-          <section class="section tags-section bg-color posts-expand">
-            <div class="tags-box">
-  <div class="tag-cloud-title">
-    目前共计 0 个标签
-  </div>
-  <div class="tag-cloud-list" id="tags">
-    
-  </div>
-</div>
-<script>
 
-  let fontStart = 12, fontEnd = 30, colorStart = '#666', colorEnd = '#000';
-  let tags = document.querySelector('#tags').children;
-  let counts = [];
-  for(let i = 0; i < tags.length; i++) {
-    counts.push(tags[i].rel);
-  }
-  let lowest = Math.min.apply(null,counts), highest = Math.max.apply(null,counts);;
-  let range = highest - lowest;
-  if (range === 0) {
-    range = 1;
-  }
-  let fontIncr, colorIncr;
-  fontIncr = (fontEnd - fontStart) / range;
-  
-  let sColorArr = toRGB(colorStart), eColorArr = toRGB(colorEnd);
-
-  for(let i = 0; i < tags.length; i++) {
-    let disCount = tags[i].rel - lowest;
-    let fontSize = fontStart + disCount * fontIncr;
-    let style = 'font-size: ' + fontSize + 'px;';
-    let arr = [];
-    for(let c = 0; c < sColorArr.length; c++) {
-      if (disCount === 0) {
-        disCount = 1;
-      }
-      let val = (sColorArr[c] - eColorArr[c]) / range * disCount;
-      if (val >= 100) {
-        val = eColorArr[c];
-      } else if (val <= 0) {
-        val = sColorArr[c];
-      }
-      arr[c] = Math.floor(val);
+  function addActiveClass(index) {
+    if (index >= 0 && index < hList.length) {
+      lList[index].classList.add(activeClass);
     }
-    style += 'color: ' + toHex(arr);
-    tags[i].style = style;
   }
 
-  function toRGB(code) {
-    if (code.length === 4) {
-      code = code.replace(/(\w)(\w)(\w)/gi, "\$1\$1\$2\$2\$3\$3");
+  function removeActiveClass(index) {
+    if (index >= 0 && index < hList.length) {
+      lList[index].classList.remove(activeClass);
     }
-    var hex = /(\w{2})(\w{2})(\w{2})/.exec(code);
-    return [parseInt(hex[1], 16), parseInt(hex[2], 16), parseInt(hex[3], 16)];
   }
 
-  function toHex(ary) {
-    return "#" + ((1 << 24) + (ary[0] << 16) + (ary[1] << 8) + ary[2]).toString(16).slice(1);
+  function addActiveLiElemment(elem, parent) {
+    if (!elem || elem === parent) {
+      return;
+    } else {
+      if (elem.__proto__ === HTMLLIElement.prototype) {
+        elem.classList.add(active);
+      }
+      addActiveLiElemment(elem.parentElement, parent);
+    }
   }
+
+  function showToc() {
+    if (tocWrapper) {
+      postBody = document.querySelector('#post_body');
+      for (let i = 0; i < postBody.children.length; i++) {
+        if (postBody.children[i].__proto__ === HTMLHeadingElement.prototype) {
+          hList.push(postBody.children[i]);
+        }
+      }
+      if (tocWrapper.classList.contains('compress')) {
+        tocContent.classList.add('closed');
+      } else if (tocWrapper.classList.contains('no_compress')) {
+        tocContent.classList.add('expanded');
+      } else {
+        if (hList.length > 10) {
+          active = 'active-hidden'
+          tocContent.classList.add('closed');
+        } else {
+          tocContent.classList.add('expanded');
+        }
+      }
+    }
+  }
+
+  (function () {
+    // 处理不是从#一级标题开始目录
+    if (tocContent.children.length === 1 && tocContent.children[0].__proto__ === HTMLLIElement.prototype) {
+      let con = tocContent.children[0].children[0];
+      tocContent.innerHTML = con.innerHTML;
+    }
+    let markdownItTOC = document.querySelector('.markdownIt-TOC');
+    let innerHeight = window.innerHeight;
+    markdownItTOC.style = `max-height: ${innerHeight - 80 > 0 ? innerHeight - 80 : innerHeight}px`
+    addTocNumber(tocContent, '');
+  })();
+
+  document.addEventListener('scroll', function (e) {
+    if (lList.length <= 0) {
+      return;
+    }
+    let scrollTop = document.scrollingElement.scrollTop + 10;
+    let dir;
+
+    if (lastTop - scrollTop > 0) {
+      dir = 'up';
+    } else {
+      dir = 'down';
+    }
+
+    lastTop = scrollTop;
+    if (scrollTop <= 0) {
+      if (lastIndex >= 0 && lastIndex < hList.length) {
+        lList[lastIndex].classList.remove(activeClass);
+      }
+      return;
+    }
+
+    let current = 0, hasFind = false;
+    for (let i = 0; i < hList.length; i++) {
+      if (hList[i].offsetTop > scrollTop) {
+        current = i;
+        hasFind = true;
+        break;
+      }
+    }
+    if (!hasFind && scrollTop > lList[lList.length - 1].offsetTop) {
+      current = hList.length - 1;
+    } else {
+      current--;
+    }
+    if (dir === 'down') {
+      if (current > lastIndex) {
+        addActiveClass(current);
+        removeActiveClass(lastIndex)
+        lastIndex = current;
+        removeParentActiveClass();
+        lList[current] && addActiveLiElemment(lList[current].parentElement, tocContent);
+      }
+    } else {
+      if (current < lastIndex) {
+        addActiveClass(current);
+        removeActiveClass(lastIndex);
+        lastIndex = current;
+        removeParentActiveClass();
+        lList[current] && addActiveLiElemment(lList[current].parentElement, tocContent);
+      }
+    }
+  });
+
+
+  window.addEventListener('load', function () {
+    showToc();
+    document.querySelector('#sidebar').style = 'display: block;';
+    tocWrapper.classList.add('toc-active');
+    setTimeout(function () {
+      if ("createEvent" in document) {
+        let evt = document.createEvent("HTMLEvents");
+        evt.initEvent("scroll", false, true);
+        document.dispatchEvent(evt);
+      }
+      else {
+        document.fireEvent("scroll");
+      }
+    }, 500)
+  })
 
 </script>
-          </section>
+            </div>
+          
+        
+      </div>
+    </div>
+  
+</div>
+<script>
+  const SIDEBAR_TITLE_ACTIVE = 'sidebar-title-active';
+  const SIDEBAR_BODY_ACTIVE = 'sidebar-body-active';
+  const SLIDE_UP_IN = 'slide-up-in';
+
+  let sidebar = document.querySelector('#sidebar'),
+  tocSideBar = document.querySelector('#tocSideBar'),
+  metaSideBar = document.querySelector('#metaSideBar'),
+  postToc = document.querySelector('#post_toc'),
+  postSiteMeta = document.querySelector('#post_side_meta'),
+  sidebarTitle = document.querySelector('.sidebar-title'),
+  sidebarBody = document.querySelector('#sidebar_body');
+
+  tocSideBar && tocSideBar.addEventListener('click', (e) => {
+    toggleSidebar(e);
+  });
+
+  metaSideBar && metaSideBar.addEventListener('click', (e) => {
+    toggleSidebar(e);
+  });
+
+  function toggleSidebar(e) {
+    let currentTitle = document.querySelector("."+SIDEBAR_TITLE_ACTIVE);
+    if (currentTitle == e.srcElement) {
+      return ;
+    }
+    let current, showElement, hideElement;
+    if (e.srcElement == metaSideBar) {
+      showElement = postSiteMeta;
+      hideElement = postToc;
+    } else if (e.srcElement == tocSideBar){
+      showElement = postToc;
+      hideElement = postSiteMeta;
+    }
+    currentTitle.classList.remove(SIDEBAR_TITLE_ACTIVE);
+    e.srcElement.classList.add(SIDEBAR_TITLE_ACTIVE);
+
+    window.Velocity(hideElement, 'stop');
+    window.Velocity(hideElement, 'transition.slideUpOut', {
+      display: 'none',
+      duration: 200,
+      complete: function () {
+        window.Velocity(showElement, 'transition.slideDownIn', {
+          duration: 200
+        });
+      }
+    })
+    hideElement.classList.remove(SIDEBAR_BODY_ACTIVE);
+    showElement.classList.add(SIDEBAR_BODY_ACTIVE);
+  }
+
+  postToc && postToc.addEventListener('transitionend', function() {
+    this.classList.remove(SLIDE_UP_IN);
+  });
+
+  if (sidebarBody) {
+    if (sidebarBody.classList.contains('pisces') || sidebarBody.classList.contains('gemini')) {
+      let hasFix = false;
+      let scrollEl = document.querySelector('.main-continer');
+      let limitTop = document.querySelector('#nav_ul').children.length * 42 + 162;
+      window.addEventListener('scroll', function(e) {
+        if (document.scrollingElement.scrollTop >= limitTop) {
+          if (!hasFix) {
+            sidebar.classList.add('sidebar-fixed');
+            hasFix = true;
+          }
+        } else {
+          if (hasFix) {
+            sidebar.classList.remove('sidebar-fixed');
+            hasFix = false;
+          }
+        }
+      });
+    }
+  }
+  
+</script>
+        <div class="section-box box-shadow-wrapper">
+          <div class="section bg-color post post-page">
+            <header class="post-header">
+  <h1 class="post-title">
+    <a class="post-title-link" href="https://chroblert.github.io/post/windows-quan-ju-dai-li/">
+      Windows全局代理
+    </a>
+  </h1>
+  <div class="post-meta">
+    
+    <span class="meta-item pc-show">
+      <i class="fa fa-calendar-o"></i>
+      <span>发布于</span>
+      <span>2022-02-19</span>
+      <span class="post-meta-divider pc-show">|</span>
+    </span>
+    
+    <span class="meta-item">
+      <i class="fa fa-clock-o"></i>
+      <span>5分钟</span>
+    </span>
+    <span class="meta-item">
+      <span class="post-meta-divider">|</span>
+      <i class="fa fa-file-word-o"></i>
+      <span>1156<span class="pc-show">字数</span></span>
+    </span>
+    
+  </div>
+</header>
+            <div class="post-body next-md-body" id="post_body">
+              <h1 id="0x01-介绍">0x01 介绍</h1>
+<h2 id="1-为什么要全局代理">1. 为什么要全局代理</h2>
+<p>在渗透的时候要保护好自己啊，不要被溯源到。<br>
+在买的一些VPS上做扫描的时候，有可能会触发到VPS厂商(搬瓦工、Vultr的都有遇到过)的安全机制(如DDoS)，将我们的VPS停机。做好全局代理的情况下，我们就可以在自己的电脑上做些扫描操作了。</p>
+<h2 id="2-为什么不用proxifier">2. 为什么不用proxifier</h2>
+<p>一直有在用proxifier，这里做个测试，除了局域网的IP，其余全部通过clash，规则如下：<br>
+<img src="https://gitee.com/chroblert/pictures/raw/master/img/20220219200629.png" alt="" loading="lazy"></p>
+<p>测试ping谷歌和IP情况如下（可以看到并没有起作用）：<br>
+<img src="https://gitee.com/chroblert/pictures/raw/master/img/20220219200850.png" alt="" loading="lazy"><br>
+<img src="https://gitee.com/chroblert/pictures/raw/master/img/20220219200916.png" alt="" loading="lazy"><br>
+##　3. 全局代理的基础<br>
+　如果想深入了解的话，需要一些路由和tap/tun虚拟网卡的知识。<br>
+　推荐几篇文章，可以看一下：<br>
+<a href="https://www.junmajinlong.com/virtual/network/data_flow_about_openvpn/">通过openvpn分析tun实现隧道的数据流程</a><br>
+<a href="https://www.junmajinlong.com/virtual/network/all_about_tun_tap/">理解Linux虚拟网卡设备tun/tap的一切</a><br>
+<a href="https://www.junmajinlong.com/virtual/network/kernel_nic_ip/">理解物理网卡、网卡接口、内核、IP等属性的关系</a></p>
+<h1 id="0x02-实操">0x02 实操</h1>
+<h2 id="一windows10全局代理">（一）Windows10全局代理</h2>
+<p>Windows10实现全局代理很简单，需要借助一款工具CFW(Clash For Windows)，下面借助最新款的CFW来进行演示（TAP模式）。<br>
+<img src="https://gitee.com/chroblert/pictures/raw/master/img/20220219203630.png" alt="" loading="lazy"></p>
+<h3 id="1-安装tap">1. 安装TAP</h3>
+<p><img src="https://gitee.com/chroblert/pictures/raw/master/img/20220219203651.png" alt="" loading="lazy"><br>
+选择“TAP Device”Manage下的Install进行安装，安装完成后，适配器中会出现一个名为cfw-tap的虚拟网卡。<br>
+<img src="https://gitee.com/chroblert/pictures/raw/master/img/20220219203706.png" alt="" loading="lazy"></p>
+<h3 id="2-启用service模式">2. 启用Service模式</h3>
+<p><img src="https://gitee.com/chroblert/pictures/raw/master/img/20220219203729.png" alt="" loading="lazy"><br>
+a. 未启用Service模式下的情况下：Service Mode旁边的地球是灰色的。<br>
+b. 选择“Service Mode”Manage下的Install进行安装，安装完成后地球变成绿色。<br>
+<img src="https://gitee.com/chroblert/pictures/raw/master/img/20220219203746.png" alt="" loading="lazy"></p>
+<h3 id="3-开启mixin">3. 开启Mixin</h3>
+<p>a. 编辑Mixin配置文件，内容如下：</p>
+<pre><code>mixin:
+   dns:
+     enable: true
+     enhanced-mode: redir-host
+     nameserver:
+       - 223.5.5.5 # 真实请求DNS，可多设置几个
+       - 8.8.8.8 # 真实请求DNS，可多设置几个
+       - 114.114.114.114
+   # interface-name: WLAN # 出口网卡名称，或者使用下方的自动检测
+   tun:
+     enable: true
+     stack: gvisor # 使用 system 需要 Clash Premium 2021.05.08 及更高版本
+     dns-hijack:
+       - 198.18.0.2:53 # 请勿更改
+     auto-route: true
+     auto-detect-interface: true # 自动检测出口网卡
+</code></pre>
+<p>b. 启动Mixin<br>
+<img src="https://gitee.com/chroblert/pictures/raw/master/img/20220219203808.png" alt="" loading="lazy"></p>
+<h3 id="4-测试">4. 测试</h3>
+<p><img src="https://gitee.com/chroblert/pictures/raw/master/img/20220219203819.png" alt="" loading="lazy"><br>
+<img src="https://gitee.com/chroblert/pictures/raw/master/img/20220219203828.png" alt="" loading="lazy"></p>
+<h2 id="二windows7全局代理">（二）Windows7全局代理</h2>
+<p>我在这里直接使用cfw进行了测试，发现启用service模式的时候，并没有实际起作用，Service Mode旁边地球也一直处于灰色的状态。 下面使用另一款工具tun2socks进行全局代理。<br>
+tun2socks有几款工具，我这里选择使用go写的一款go-tun2socks,项目地址：https://github.com/eycorsican/go-tun2socks</p>
+<h3 id="1-安装tap-2">1. 安装TAP</h3>
+<p>a. 下载地址：http://build.openvpn.net/downloads/releases/tap-windows-9.22.1-I602.exe<br>
+b. 安装完成后，会出现一个TAP-Windows Adapter V9的虚拟网卡<br>
+<img src="https://gitee.com/chroblert/pictures/raw/master/img/20220219203853.png" alt="" loading="lazy"></p>
+<h3 id="2-运行tun2socks">2. 运行tun2socks</h3>
+<p>a. 按照教程装完tap，再下载tun2socks后直接运行会发现，报如下错误：<br>
+<img src="https://gitee.com/chroblert/pictures/raw/master/img/20220219203904.png" alt="" loading="lazy"><br>
+b. 经过调试分析后，是添加的虚拟网卡名称的问题。<br>
+c. 经过跟踪调试源码，发现会将虚拟网卡名称与ifaceName进行比较，而ifaceName的默认值为tun1.<br>
+<img src="https://gitee.com/chroblert/pictures/raw/master/img/20220219203938.png" alt="" loading="lazy"><br>
+d. 所以需要将添加的TAP虚拟网卡名称修改为tun1，修改完成后再次运行，结果如下(或者-tunName &quot;虚拟网卡名称&quot;)：</p>
+<ul>
+<li><img src="https://gitee.com/chroblert/pictures/raw/master/img/20220219204009.png" alt="" loading="lazy"></li>
+</ul>
+<p>e. 完整参数运行</p>
+<ul>
+<li>需要提前准备好一个socks代理服务器（这里以本地用clash为例）</li>
+<li>tun2socks-windows-4.0-amd64.exe -tunAddr 10.0.0.2 -tunGw 10.0.0.1 -tunDns 114.114.114.114 -prooxyType socks -proxyServer 127.0.0.1:7890 -tunName &quot;本地连接 2&quot;</li>
+<li>127.0.0.0:7890是clash在本地监听的一个socks5代理</li>
+</ul>
+<h3 id="3-路由配置">3. 路由配置</h3>
+<p>a. 原始路由<br>
+<img src="https://gitee.com/chroblert/pictures/raw/master/img/20220219204039.png" alt="" loading="lazy">		<br>
+b. 修改虚拟网卡的跳跃点数为1<br>
+<img src="https://gitee.com/chroblert/pictures/raw/master/img/20220219204107.png" alt="" loading="lazy"><br>
+c. 之后运行tun2socks的时候，会自动添加一条路由</p>
+<ul>
+<li>因为此时虚拟网卡的metric的2相比于原始的默认路由11小，所以可以不用删除原始的默认路由。</li>
+<li><img src="https://gitee.com/chroblert/pictures/raw/master/img/20220219204137.png" alt="" loading="lazy"></li>
+</ul>
+<p>d. 此时直接访问网站的话会发现访问不到，经过分析应该是clash出去的机场的IP会路由匹配到10.0.0.1，造成一个回环。</p>
+<ul>
+<li>因而此时需要找到clash出去的机场IP，通过clash的log和tun2sock的运行界面可以看到大量重复的一个IP，这个就有可能是我们机场的IP。</li>
+<li><img src="https://gitee.com/chroblert/pictures/raw/master/img/20220219204225.png" alt="" loading="lazy"></li>
+<li><img src="https://gitee.com/chroblert/pictures/raw/master/img/20220219204235.png" alt="" loading="lazy"></li>
+<li>找到后需要让机场IP通过原始默认网关出去。</li>
+<li>route add &lt;机场IP&gt; mask 255.255.255.255 192.168.14.1</li>
+<li><img src="https://gitee.com/chroblert/pictures/raw/master/img/20220219204312.png" alt="" loading="lazy"></li>
+</ul>
+<h3 id="4-测试-2">4. 测试</h3>
+<figure data-type="image" tabindex="6"><img src="https://gitee.com/chroblert/pictures/raw/master/img/20220219204319.png" alt="" loading="lazy"></figure>
+<p>参考资料：<a href="https://www.junmajinlong.com/virtual/network/data_flow_about_openvpn/">通过openvpn分析tun实现隧道的数据流程</a><br>
+参考资料：<a href="https://www.junmajinlong.com/virtual/network/all_about_tun_tap/">理解Linux虚拟网卡设备tun/tap的一切</a><br>
+参考资料：<a href="https://www.junmajinlong.com/virtual/network/kernel_nic_ip/">理解物理网卡、网卡接口、内核、IP等属性的关系</a><br>
+参考资料：<a href="https://igghelper.com/helper/?p=402">使用Clash Tun网卡模式</a></p>
+
+            </div>
+            <div class="post-footer">
+  <ul class="post-copyright">
+    <li class="post-copyright-author">
+      <strong>本文作者：</strong>
+      Jerrybird
+    </li>
+    <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://chroblert.github.io/post/windows-quan-ju-dai-li/" title="Windows全局代理">https://chroblert.github.io/post/windows-quan-ju-dai-li/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong>
+      本博客所有文章除特别声明外，均采用<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i> BY-NC-SA</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+  <div class="tags">
+    
+  </div>
+  <div class="nav">
+    <div class="nav-prev">
+      
+    </div>
+    <div class="nav-next">
+      
+        <a class="nav-pc-next" title="flash钓鱼升级版" href="https://chroblert.github.io/post/flash-diao-yu-sheng-ji-ban/">flash钓鱼升级版</a>
+        <a class="nav-mobile-next" title="flash钓鱼升级版" href="https://chroblert.github.io/post/flash-diao-yu-sheng-ji-ban/">下一篇</a>
+        <i class="fa fa-chevron-right"></i>
+      
+    </div>
+  </div>
+</div>
+            
+  
+
+          </div>
         </div>
       </div>
     </div>
@@ -442,6 +843,36 @@
   // 代码高亮
   hljs.initHighlightingOnLoad();
 
+</script>
+    <div class="light-box" id="light_box"></div>
+<script>
+  let imgs = document.querySelectorAll('.post-body img');
+  let lightBox = document.querySelector('#light_box');
+  lightBox.addEventListener('mousedown', (e) => {
+    e.preventDefault()
+  })
+  lightBox.addEventListener('mousewheel', (e) => {
+    e.preventDefault()
+  })
+  let width = window.innerWidth * 0.8;
+  lightBox.onclick = () => {
+    let img = lightBox.querySelector('img');
+    lightBox.style = '';
+    img && img.remove();
+  }
+  imgs.forEach(item => {
+    item.onclick = function (e) {
+      let lightImg = document.createElement('img');
+      lightImg.src = this.src;
+      lightBox.style = `height: 100%; opacity: 1; background-color: rgba(0, 0, 0, 0.5);cursor: zoom-out;`;
+      lightImg.style = `width: ${width}px; border: 1px solid #fff; border-radius: 2px;`;
+      lightImg.onclick = function () {
+        lightBox.style = '';
+        this.remove();
+      }
+      lightBox.append(lightImg);
+    }
+  })
 </script>
   </div>
 </body>
@@ -891,7 +1322,6 @@ c. 之后运行tun2socks的时候，会自动添加一条路由&lt;/p&gt;
   escapeMap.set('&quot;', '"');
   escapeMap.set('&amp;', '&');
 </script> -->
-
 
 
 </html>
